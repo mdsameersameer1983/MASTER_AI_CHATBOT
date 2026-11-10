@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc"><title>MASTER AI · Your all-in-one assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-mark">✳</div><div><strong>master<span>ai</span></strong><small>YOUR AI, ALL IN ONE</small></div><button class="icon-btn close-menu" id="closeMenu" aria-label="Close menu">×</button></div>
+    <button class="new-chat" id="newChat"><span>＋</span> New conversation <kbd>⌘ K</kbd></button>
+    <div class="side-label">YOUR ASSISTANTS <span>11</span></div>
+    <nav class="mode-list" id="modeList">
+      {% for mode in modes %}<button class="mode-item {% if loop.first %}active{% endif %}" data-mode="{{ mode }}"><span class="mode-icon icon-{{ loop.index0 }}"></span><span>{{ mode }}</span>{% if loop.first %}<i></i>{% endif %}</button>{% endfor %}
+    </nav>
+    <div class="side-bottom"><div class="upgrade-card"><div class="upgrade-spark">✦</div><strong>Make room for more</strong><p>Your ideas deserve a bigger canvas.</p><button onclick="showToast('You’re all set with Master AI.')">Explore plans <span>↗</span></button></div><div class="profile"><div class="avatar">M</div><div><strong>My workspace</strong><small>Free plan</small></div><button class="dots" aria-label="Workspace menu">···</button></div></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar"><button class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu">☰</button><div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="topMode">General AI</strong></div><div class="top-actions"><div class="status"><i></i> All systems operational</div><button class="icon-btn" aria-label="Help" onclick="showToast('Ask away — your assistant is ready.')">?</button><div class="mini-avatar">M</div></div></header>
+    <div class="chat-scroll" id="chatScroll">
+      <section class="welcome" id="welcome"><div class="welcome-orb"><div class="orb-core">✳</div><span class="orb-dot one"></span><span class="orb-dot two"></span><span class="orb-dot three"></span></div><div class="eyebrow"><span class="eyebrow-line"></span> A LITTLE MORE POSSIBLE <span class="eyebrow-line"></span></div><h1>Good things start<br>with <em>a question.</em></h1><p class="welcome-copy">One space. A dozen ways to think bigger.<br>What can we help you make happen?</p>
+      <div class="suggestions" id="suggestions"><button class="suggestion" data-prompt="Help me understand a topic I've been curious about"><span class="s-icon lavender">✧</span><span><small>LEARN SOMETHING</small><strong>Explain a new idea</strong></span><b>↗</b></button><button class="suggestion" data-prompt="Help me plan something exciting for this week"><span class="s-icon peach">↗</span><span><small>MAKE A PLAN</small><strong>Turn ideas into action</strong></span><b>↗</b></button><button class="suggestion" data-prompt="Give me a creative idea to get started on"><span class="s-icon mint">✳</span><span><small>GET INSPIRED</small><strong>Find a fresh perspective</strong></span><b>↗</b></button></div></section>
+      <section class="messages" id="messages" aria-live="polite"></section>
+    </div>
+    <div class="composer-wrap"><div class="file-chip" id="fileChip"></div><form class="composer" id="chatForm"><button type="button" class="attach-btn" id="attachBtn" title="Attach a PDF">＋</button><textarea id="messageInput" rows="1" placeholder="Ask anything..." aria-label="Message"></textarea><span class="composer-hint">↵ to send</span><button class="send-btn" id="sendBtn" aria-label="Send message">↑</button><input type="file" id="pdfInput" accept="application/pdf,.pdf" hidden></form><div class="disclaimer">Master AI can make mistakes. Check important details.</div></div>
+  </main>
+</div>
+<div class="mobile-backdrop" id="backdrop"></div><div class="toast" id="toast"></div>
+<script>window.MODES = {{ modes|tojson }};</script><script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body></html>
